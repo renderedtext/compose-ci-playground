@@ -18,3 +18,5 @@ blocks:
           - ssh-keyscan -H github.com >> ~/.ssh/known_hosts
           - checkout
           - ls -1
+          - sudo apt-get install -y postgresql-client
+          - psql -c \"CREATE USER developer WITH PASSWORD 'developer';\" -h db -U postgres
