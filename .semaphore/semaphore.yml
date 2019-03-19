@@ -15,7 +15,5 @@ blocks:
         commands:
           - whoami
           - pwd
-          - apt-get update -y
-          - apt-get install -y git
           - checkout
           - ls -1
