@@ -7,7 +7,7 @@ agent:
     
   containers:
     - name: main
-      image: ubuntu:18.04
+      image: semaphoreci/ruby:2.6.2
     - name: db
       image: postgres:9.6
         
