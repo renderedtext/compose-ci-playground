@@ -28,7 +28,7 @@ blocks:
           - apt-get -y update && apt-get install postgresql-client redis-tools
           
           # create a database by connecting to 'db' container
-          - PGPASSWORD="keyboard-cat" createdb -U postgres -h db -p 5432
+          - PGPASSWORD="keyboard-cat" createdb -U postgres -h db -p 5432 -e hello
 
           # list key in redis container by connecting to the cache container
           - redis-cli -h cache "KEYS *"
