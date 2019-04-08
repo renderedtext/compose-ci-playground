@@ -31,4 +31,4 @@ blocks:
           - PGPASSWORD="keyboard-cat" createdb -U postgres -h db -p 5432 -e hello
 
           # list key in redis container by connecting to the cache container
-          - redis-cli -h cache "KEYS *"
+          - redis-cli -h cache KEYS *  
