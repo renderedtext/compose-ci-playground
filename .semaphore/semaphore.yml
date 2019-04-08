@@ -24,6 +24,7 @@ blocks:
       jobs:
       - name: Hello
         commands:
+          - apt-get -y update && apt-get install postgres-client redis-tools
           # create a database by connecting to 'db' container
           - PGPASSWORD="keyboard-cat" createdb -U postgres -h db -p 5432
 
