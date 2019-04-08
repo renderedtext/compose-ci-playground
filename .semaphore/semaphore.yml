@@ -1,29 +1,31 @@
 version: v1.0
-name: First pipeline example
+name: Hello Docker
 agent:
   machine:
-    type: e1-standard-8
+    type: e1-standard-2
     os_image: ubuntu1804
-    
+
   containers:
     - name: main
-      image: ubuntu:18.04
+      image: semaphoreci/ruby-2.6.1
+
     - name: db
       image: postgres:9.6
-        
-blocks:
-  - name: "Test"
-    task:
       env_vars:
-        - name: APP_ENV
-          value: prod
+        - name: POSTGRES_PASSWORD
+          value: keyboard-cat
+
+    - name: cache
+      image: redis:5.0
+
+blocks:
+  - name: "Hello"
+    task:
       jobs:
-      - name: Test
+      - name: Hello
         commands:
-          - whoami
-          - pwd
-          - ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-          - checkout
-          - ls -1
-          - sudo apt-get install -y postgresql-client
-          - psql -c "CREATE USER developer WITH PASSWORD 'developer';" -h db -U postgres
+          # create a database by connecting to 'db' container
+          - PGPASSWORD="keyboard-cat" createdb -U postgres -h db -p 5432
+
+          # list key in redis container by connecting to the cache container
+          - redis-cli -h cache "KEYS *"
