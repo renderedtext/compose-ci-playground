@@ -21,8 +21,8 @@ agent:
     - name: cache
       image: redis:5.0
       
-   image_pull_secrets:
-     - name: compose-ci-playground-image-pull-secrets
+  image_pull_secrets:
+    - name: compose-ci-playground-image-pull-secrets
 
 blocks:
   - name: "Hello"
