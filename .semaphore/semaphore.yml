@@ -8,6 +8,9 @@ agent:
   containers:
     - name: main
       image: semaphoreci/ruby:2.6.1
+      
+    - name: hello
+      image: renderedtext/hello
 
     - name: db
       image: postgres:9.6
@@ -17,6 +20,9 @@ agent:
 
     - name: cache
       image: redis:5.0
+      
+   image_pull_secrets:
+     - name: compose-ci-playground-image-pull-secrets
 
 blocks:
   - name: "Hello"
