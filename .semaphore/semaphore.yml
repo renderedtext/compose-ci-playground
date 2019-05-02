@@ -1,5 +1,7 @@
+
 version: v1.0
 name: Hello Docker
+
 agent:
   machine:
     type: e1-standard-2
@@ -7,22 +9,7 @@ agent:
 
   containers:
     - name: main
-      image: semaphoreci/ruby:2.6.1
-      
-    - name: hello
-      image: renderedtext/hello
-
-    - name: db
-      image: postgres:9.6
-      env_vars:
-        - name: POSTGRES_PASSWORD
-          value: keyboard-cat
-
-    - name: cache
-      image: redis:5.0
-      
-  image_pull_secrets:
-    - name: compose-ci-playground-image-pull-secrets
+      image: semaphoreci/ruby-2.6.1
 
 blocks:
   - name: "Hello"
@@ -30,11 +17,5 @@ blocks:
       jobs:
       - name: Hello
         commands:
-          # install postgres and redis clients
-          - apt-get -y update && apt-get install postgresql-client redis-tools
-          
-          # create a database by connecting to 'db' container
-          - PGPASSWORD="keyboard-cat" createdb -U postgres -h db -p 5432 -e hello
-
-          # list key in redis container by connecting to the cache container
-          - redis-cli -h cache KEYS *  
+          - checkout
+          - ruby --version
