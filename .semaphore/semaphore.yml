@@ -8,7 +8,7 @@ agent:
 
   containers:
     - name: main
-      image: circleci/php-bar:7.1-apache-jessie-foo
+      image: semaphoreci/ruby:2.6.1
 
 blocks:
   - name: "Hello"
@@ -17,5 +17,4 @@ blocks:
       - name: Hello
         commands:
           - checkout
-          - php --version
-          - apache2 --version
+          - ruby --version
