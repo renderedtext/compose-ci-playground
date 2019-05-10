@@ -1,4 +1,3 @@
-
 version: v1.0
 name: Hello Docker
 
@@ -9,7 +8,7 @@ agent:
 
   containers:
     - name: main
-      image: semaphoreci/ruby:2.6.1
+      image: php:7.1-apache-jessie
 
 blocks:
   - name: "Hello"
@@ -18,4 +17,5 @@ blocks:
       - name: Hello
         commands:
           - checkout
-          - ruby --version
+          - php --version
+          - apache2 --version
