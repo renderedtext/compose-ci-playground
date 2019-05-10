@@ -16,6 +16,7 @@ blocks:
       jobs:
       - name: Hello
         commands:
+          - apt-get install -y git
           - checkout
           - php --version
           - apache2 --version
