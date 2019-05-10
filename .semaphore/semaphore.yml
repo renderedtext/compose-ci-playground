@@ -8,7 +8,7 @@ agent:
 
   containers:
     - name: main
-      image: php:7.1-apache-jessie
+      image: circleci/php:7.1-apache-jessie
 
 blocks:
   - name: "Hello"
