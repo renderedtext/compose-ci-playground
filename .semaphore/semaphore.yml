@@ -12,3 +12,4 @@ blocks:
       - name: Hello0
         commands:
           - sleep 300
+          - echo 1234
