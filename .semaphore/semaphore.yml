@@ -13,3 +13,4 @@ blocks:
         commands:
           - sleep 300
           - echo 1234
+          - echo 5678
