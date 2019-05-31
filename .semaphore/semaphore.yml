@@ -6,7 +6,7 @@ agent:
 
   containers:
     - name: main
-      image: semaphoreci/ruby:2.6.1
+      image: toastercup/alpine-semaphore
 
     - name: db
       image: postgres:9.6
@@ -21,29 +21,6 @@ blocks:
   - name: "Hello"
     task:
       jobs:
-      - name: Hello0
-        commands:
-          - echo "Hello"
-
-      - name: Hello1
-        commands:
-          - echo "Hello"
-
-      - name: Hello2
-        commands:
-          - echo "Hello"
-
-      - name: Hello3
-        commands:
-          - echo "Hello"
-
-      - name: Hello
-        commands:
-          # install postgres and redis clients
-          - apt-get -y update && apt-get install postgresql-client redis-tools
-
-          # create a database by connecting to 'db' container
-          - PGPASSWORD="keyboard-cat" createdb -U postgres -h db -p 5432
-
-          # list key in redis container by connecting to the cache container
-          - redis-cli -h cache "KEYS *"
+        - name: Hello
+          commands:
+            - echo "hello"
