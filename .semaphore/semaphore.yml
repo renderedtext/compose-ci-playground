@@ -2,7 +2,7 @@ version: v1.0
 name: Hello Docker
 agent:
   machine:
-    type: e1-standard-8
+    type: g1-standard-2
 
   containers:
     - name: main
