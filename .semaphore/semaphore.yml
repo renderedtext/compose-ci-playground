@@ -3,47 +3,34 @@ name: Hello Docker
 agent:
   machine:
     type: e1-standard-8
-
   containers:
     - name: main
-      image: semaphoreci/ruby:2.6.1
-
+      image: 'semaphoreci/ruby:2.6.1'
     - name: db
-      image: postgres:9.6
+      image: 'postgres:9.6'
       env_vars:
         - name: POSTGRES_PASSWORD
           value: keyboard-cat
-
     - name: cache
-      image: redis:5.0
-
+      image: 'redis:5.0'
 blocks:
-  - name: "Hello"
+  - name: Hello 123
     task:
       jobs:
-      - name: Hello0
-        commands:
-          - echo "Hello"
-
-      - name: Hello1
-        commands:
-          - echo "Hello"
-
-      - name: Hello2
-        commands:
-          - echo "Hello"
-
-      - name: Hello3
-        commands:
-          - echo "Hello"
-
-      - name: Hello
-        commands:
-          # install postgres and redis clients
-          - apt-get -y update && apt-get install postgresql-client redis-tools
-
-          # create a database by connecting to 'db' container
-          - PGPASSWORD="keyboard-cat" createdb -U postgres -h db -p 5432
-
-          # list key in redis container by connecting to the cache container
-          - redis-cli -h cache "KEYS *"
+        - name: Hello0
+          commands:
+            - echo "Hello"
+        - name: Hello1
+          commands:
+            - echo "Hello"
+        - name: Hello2
+          commands:
+            - echo "Hello"
+        - name: Hello3
+          commands:
+            - echo "Hello"
+        - name: Hello
+          commands:
+            - apt-get -y update && apt-get install postgresql-client redis-tools
+            - PGPASSWORD="keyboard-cat" createdb -U postgres -h db -p 5432
+            - redis-cli -h cache "KEYS *"
