@@ -14,16 +14,16 @@ agent:
     - name: cache
       image: 'redis:5.0'
 blocks:
-  - name: Hello 123
+  - name: Hello A B C D
     task:
       jobs:
-        - name: Hello0
-          commands:
-            - echo "Hello"
         - name: Hello1
           commands:
             - echo "Hello"
         - name: Hello2
+          commands:
+            - echo "Hello"
+        - name: Hello22
           commands:
             - echo "Hello"
         - name: Hello3
