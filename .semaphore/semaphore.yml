@@ -34,3 +34,23 @@ blocks:
             - apt-get -y update && apt-get install postgresql-client redis-tools
             - PGPASSWORD="keyboard-cat" createdb -U postgres -h db -p 5432
             - redis-cli -h cache "KEYS *"
+  - name: 'Block #2'
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands: []
+  - name: 'Block #3'
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands: []
+  - name: 'Block #4'
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands: []
+  - name: 'Block #5'
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands: []
