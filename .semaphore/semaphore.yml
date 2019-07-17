@@ -2,10 +2,12 @@ version: v1.0
 name: Hello Docker
 agent:
   machine:
-    type: e1-standard-8
+    type: e1-standard-2
+    os_image: ubuntu1804
   containers:
     - name: main
       image: 'semaphoreci/ruby:2.6.1'
+      env_vars: []
     - name: db
       image: 'postgres:9.6'
       env_vars:
@@ -13,6 +15,9 @@ agent:
           value: keyboard-cat
     - name: cache
       image: 'redis:5.0'
+      env_vars: []
+    - name: myslq
+      image: 'mysql:6'
 blocks:
   - name: Hello A B C D
     task:
@@ -34,23 +39,33 @@ blocks:
             - apt-get -y update && apt-get install postgresql-client redis-tools
             - PGPASSWORD="keyboard-cat" createdb -U postgres -h db -p 5432
             - redis-cli -h cache "KEYS *"
+    dependencies: []
   - name: 'Block #2'
     task:
       jobs:
         - name: 'Job #1'
           commands: []
+    dependencies:
+      - Hello A B C D
   - name: 'Block #3'
     task:
       jobs:
         - name: 'Job #1'
           commands: []
+    dependencies:
+      - 'Block #2'
   - name: 'Block #4'
     task:
       jobs:
         - name: 'Job #1'
           commands: []
+    dependencies:
+      - 'Block #3'
   - name: 'Block #5'
     task:
       jobs:
         - name: 'Job #1'
           commands: []
+    dependencies:
+      - 'Block #3'
+      - 'Block #4'
