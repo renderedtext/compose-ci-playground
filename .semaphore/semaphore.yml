@@ -30,5 +30,5 @@ blocks:
         - name: Test
           commands:
             - wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
-            - dockerize -wait tcp:///graphql:8080 -timeout 1m
+            - dockerize -wait tcp:///0.0.0.0:8080 -timeout 1m
             - docker ps
