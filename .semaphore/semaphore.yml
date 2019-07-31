@@ -24,7 +24,7 @@ blocks:
   - name: "Hasura"
     task:
       env_vars:
-        - name: $DOCKERIZE_VERSION
+        - name: DOCKERIZE_VERSION
           value: v0.3.0
       jobs:
         - name: Test
