@@ -1,71 +1,34 @@
 version: v1.0
-name: Hello Docker
+name: Hasura demo
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
+
   containers:
     - name: main
-      image: 'semaphoreci/ruby:2.6.1'
-      env_vars: []
-    - name: db
-      image: 'postgres:9.6'
+      image: semaphoreci/ubuntu:18.04
+    - name: postgres
+      image: postgres
+    - name: graphql
+      image: hasura/graphql-engine:v1.0.0-beta.2
       env_vars:
-        - name: POSTGRES_PASSWORD
-          value: keyboard-cat
-    - name: cache
-      image: 'redis:5.0'
-      env_vars: []
-    - name: myslq
-      image: 'mysql:6'
+        - name: HASURA_GRAPHQL_DATABASE_URL
+          value: postgres://postgres:@postgres:5432/postgres
+        - name: HASURA_GRAPHQL_ADMIN_SECRET
+          value: myadminsecretkey
+        - name: HASURA_GRAPHQL_ENABLE_CONSOLE
+          value: "true"
+
 blocks:
-  - name: Hello A B C D
+  - name: "Hasura"
     task:
+      env_vars:
+        - name: $DOCKERIZE_VERSION
+          value: v0.3.0
       jobs:
-        - name: Hello1
+        - name: Test
           commands:
-            - echo "Hello"
-        - name: Hello2
-          commands:
-            - echo "Hello"
-        - name: Hello22
-          commands:
-            - echo "Hello"
-        - name: Hello3
-          commands:
-            - echo "Hello"
-        - name: Hello
-          commands:
-            - apt-get -y update && apt-get install postgresql-client redis-tools
-            - PGPASSWORD="keyboard-cat" createdb -U postgres -h db -p 5432
-            - redis-cli -h cache "KEYS *"
-    dependencies: []
-  - name: 'Block #2'
-    task:
-      jobs:
-        - name: 'Job #1'
-          commands: []
-    dependencies:
-      - Hello A B C D
-  - name: 'Block #3'
-    task:
-      jobs:
-        - name: 'Job #1'
-          commands: []
-    dependencies:
-      - 'Block #2'
-  - name: 'Block #4'
-    task:
-      jobs:
-        - name: 'Job #1'
-          commands: []
-    dependencies:
-      - 'Block #3'
-  - name: 'Block #5'
-    task:
-      jobs:
-        - name: 'Job #1'
-          commands: []
-    dependencies:
-      - 'Block #3'
-      - 'Block #4'
+            - wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+            - dockerize -wait tcp:///graphql:8080 -timeout 1m
+            - docker ps
