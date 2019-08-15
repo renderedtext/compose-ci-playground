@@ -3,69 +3,17 @@ name: Hello Docker
 agent:
   machine:
     type: e1-standard-2
-    os_image: ubuntu1804
   containers:
     - name: main
-      image: 'semaphoreci/ruby:2.6.1'
-      env_vars: []
-    - name: db
-      image: 'postgres:9.6'
-      env_vars:
-        - name: POSTGRES_PASSWORD
-          value: keyboard-cat
-    - name: cache
-      image: 'redis:5.0'
-      env_vars: []
-    - name: myslq
-      image: 'mysql:6'
+      image: 'ubuntu:14.04'
+      
 blocks:
-  - name: Hello A B C D
+  - name: A
     task:
       jobs:
         - name: Hello1
           commands:
-            - echo "Hello"
-        - name: Hello2
-          commands:
-            - echo "Hello"
-        - name: Hello22
-          commands:
-            - echo "Hello"
-        - name: Hello3
-          commands:
-            - echo "Hello"
-        - name: Hello
-          commands:
-            - apt-get -y update && apt-get install postgresql-client redis-tools
-            - PGPASSWORD="keyboard-cat" createdb -U postgres -h db -p 5432
-            - redis-cli -h cache "KEYS *"
-    dependencies: []
-  - name: 'Block #2'
-    task:
-      jobs:
-        - name: 'Job #1'
-          commands: []
-    dependencies:
-      - Hello A B C D
-  - name: 'Block #3'
-    task:
-      jobs:
-        - name: 'Job #1'
-          commands: []
-    dependencies:
-      - 'Block #2'
-  - name: 'Block #4'
-    task:
-      jobs:
-        - name: 'Job #1'
-          commands: []
-    dependencies:
-      - 'Block #3'
-  - name: 'Block #5'
-    task:
-      jobs:
-        - name: 'Job #1'
-          commands: []
-    dependencies:
-      - 'Block #3'
-      - 'Block #4'
+           - 'source /etc/lsb-release && echo "deb http://download.rethinkdb.com/apt $DISTRIB_CODENAME main" | sudo tee /etc/apt/sources.list.d/rethinkdb.list'
+           - wget -qO- 'https://download.rethinkdb.com/apt/pubkey.gpg' | sudo apt-key add -
+           - sudo apt-get update
+           - sudo apt-get install rethinkdb
