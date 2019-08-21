@@ -1,21 +1,35 @@
 version: v1.0
-name: Hello Docker
+name: Hasura demo
 agent:
   machine:
     type: e1-standard-2
+    os_image: ubuntu1804
+
   containers:
     - name: main
-      image: 'mohamnag/ubuntu-git'
-      
+      image: semaphoreci/ubuntu:18.04
+    - name: postgres
+      image: postgres
+    - name: graphql
+      image: hasura/graphql-engine:v1.0.0-beta.2
+      env_vars:
+        - name: HASURA_GRAPHQL_DATABASE_URL
+          value: postgres://postgres:@postgres:5432/postgres
+        - name: HASURA_GRAPHQL_ADMIN_SECRET
+          value: myadminsecretkey
+        - name: HASURA_GRAPHQL_ENABLE_CONSOLE
+          value: "true"
+
 blocks:
-  - name: A
+  - name: "Hasura"
     task:
       jobs:
-        - name: Hello1
-          commands:
-           - sudo apt-get update
-           - sudo apt-get install -y wget
-           - 'source /etc/lsb-release && echo "deb http://download.rethinkdb.com/apt $DISTRIB_CODENAME main" | sudo tee /etc/apt/sources.list.d/rethinkdb.list'
-           - wget -qO- 'https://download.rethinkdb.com/apt/pubkey.gpg' | sudo apt-key add -
-           - sudo apt-get update
-           - sudo apt-get install rethinkdb
+      - name: Test
+        commands:
+          - echo "here"
+          - docker ps -a
+          - checkout
+          - curl -L https://github.com/hasura/graphql-engine/raw/master/cli/get.sh | bash
+          - cd hasura
+          - hasura version
+          - hasura migrate apply
