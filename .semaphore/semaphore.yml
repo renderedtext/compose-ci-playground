@@ -12,7 +12,7 @@ agent:
       image: nginx:latest
 
 blocks:
-  - name: "Hasura"
+  - name: "Network"
     task:
       jobs:
       - name: Test
