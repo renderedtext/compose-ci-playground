@@ -8,17 +8,8 @@ agent:
   containers:
     - name: main
       image: semaphoreci/ubuntu:18.04
-    - name: postgres
-      image: postgres
-    - name: graphql
-      image: hasura/graphql-engine:v1.0.0-beta.2
-      env_vars:
-        - name: HASURA_GRAPHQL_DATABASE_URL
-          value: postgres://postgres:@postgres:5432/postgres
-        - name: HASURA_GRAPHQL_ADMIN_SECRET
-          value: myadminsecretkey
-        - name: HASURA_GRAPHQL_ENABLE_CONSOLE
-          value: "true"
+    - name: nginx
+      image: nginx:latest
 
 blocks:
   - name: "Hasura"
@@ -29,7 +20,4 @@ blocks:
           - echo "here"
           - docker ps -a
           - checkout
-          - curl -L https://github.com/hasura/graphql-engine/raw/master/cli/get.sh | bash
-          - cd hasura
-          - hasura version
-          - hasura migrate apply
+          - curl http://nginx
