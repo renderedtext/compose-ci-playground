@@ -1,5 +1,5 @@
 version: v1.0
-name: Hasura demo
+name: Env vars
 agent:
   machine:
     type: e1-standard-2
@@ -14,3 +14,4 @@ blocks:
         - name: Test
           commands:
             - env
+            - whoami
