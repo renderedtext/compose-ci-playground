@@ -4,20 +4,13 @@ agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
-
   containers:
     - name: main
-      image: semaphoreci/ubuntu:18.04
-    - name: nginx
-      image: nginx:latest
-
+      image: 'journera/godev:monorepo'
 blocks:
-  - name: "Network"
+  - name: Network
     task:
       jobs:
-      - name: Test
-        commands:
-          - echo "here"
-          - docker ps -a
-          - checkout
-          - curl http://nginx
+        - name: Test
+          commands:
+            - env
