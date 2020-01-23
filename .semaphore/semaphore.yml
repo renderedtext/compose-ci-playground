@@ -10,6 +10,8 @@ agent:
       image: semaphoreci/ubuntu:18.04
     - name: nginx
       image: nginx:latest
+      user: nginx
+      entrypoint: /bin/bash
 
 blocks:
   - name: "Network"
