@@ -9,6 +9,7 @@ agent:
       image: 'semaphoreci/ubuntu:18.04'
     - name: db
       image: 'postgres:latest'
+      entrypoint: /bin/bash sleep 360
 blocks:
   - name: Network
     task:
