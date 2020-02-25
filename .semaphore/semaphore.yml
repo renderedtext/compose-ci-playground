@@ -1,23 +1,20 @@
 version: v1.0
-name: Hasura demo
+name: Example
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
-
   containers:
     - name: main
-      image: semaphoreci/ubuntu:18.04
-    - name: nginx
-      image: nginx:latest
-
+      image: 'semaphoreci/ubuntu:18.04'
+    - name: db
+      image: 'postgres:latest'
 blocks:
-  - name: "Network"
+  - name: Network
     task:
       jobs:
-      - name: Test
-        commands:
-          - echo "here"
-          - docker ps -a
-          - checkout
-          - curl http://nginx
+        - name: Test
+          commands:
+            - echo "here"
+            - docker ps -a
+            - checkout
