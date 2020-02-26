@@ -7,9 +7,9 @@ agent:
   containers:
     - name: main
       image: 'semaphoreci/ubuntu:18.04'
-    - name: db
-      image: 'postgres:latest'
-      entrypoint: /bin/bash sleep 3600
+    - name: es
+      image: nshou/elasticsearch-kibana
+      entrypoint: /bin/bash
 blocks:
   - name: Network
     task:
