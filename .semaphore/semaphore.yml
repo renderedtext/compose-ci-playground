@@ -6,16 +6,14 @@ agent:
     os_image: ubuntu1804
   containers:
     - name: main
-      image: 'semaphoreci/ubuntu:18.04'
-    - name: es
-      image: nshou/elasticsearch-kibana
-      entrypoint: /bin/sh
+      image: 'semaphoreci/ruby:2.7.1-node-browsers'
 blocks:
-  - name: Network
+  - name: Chrome
     task:
       jobs:
-        - name: Test
+        - name: chrome 83.x
           commands:
-            - echo "here"
-            - docker ps -a
-            - checkout
+            - 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list'
+            - 'sudo wget https://dl.google.com/linux/linux_signing_key.pub && sudo apt-key add linux_signing_key.pub'
+            - sudo apt-get update && sudo apt-get install google-chrome-beta
+            - chromedriver --version
