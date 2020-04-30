@@ -15,6 +15,5 @@ blocks:
           commands:
             - 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list'
             - 'sudo wget https://dl.google.com/linux/linux_signing_key.pub && sudo apt-key add linux_signing_key.pub'
-            - sudo apt-get update && sudo apt-get install google-chrome-beta
-            - sudo apt-get remove google-chrome
+            - sudo apt-get update && sudo apt-get remove -y google-chrome && sudo apt-get install -y google-chrome-beta
             - chromedriver --version
