@@ -14,3 +14,27 @@ blocks:
         - name: JVM
           commands:
             - echo $ANDROID_SDK_ROOT
+    dependencies: []
+  - name: 'Block #2'
+    dependencies: []
+    task:
+      agent:
+        machine:
+          type: e1-standard-2
+          os_image: ubuntu2004
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - checkout
+            - google-chrome -v
+            - chromedriver -v
+            - 'wget -O chrome.deb http://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_109.0.5414-1_amd64.deb'
+            - 'https://chromedriver.storage.googleapis.com/109.0.5414.74/chromedriver_linux64.zip'
+            - sudo apt install libxss1
+            - sudo apt-get remove --purge -y google-chrome-stable
+            - sudo dpkg -i chrome.deb
+            - unzip chromedriver_linux64.zip
+            - chmod 0755 chromedriver
+            - sudo cp chromedriver /usr/local/bin/chromedriver
+            - google-chrome -v
+            - chromedriver -v
